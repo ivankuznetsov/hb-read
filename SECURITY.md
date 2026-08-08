@@ -10,4 +10,4 @@ Security fixes are provided for the latest tagged release.
 
 ## Credential handling
 
-`hb-read` expects a Honeybadger personal authentication token in an environment variable. Never commit tokens to this repository or include them in issue reports, test fixtures, screenshots, or command transcripts.
+`badgerpeek` expects a Honeybadger personal authentication token in an environment variable. Never commit tokens to this repository or include them in issue reports, test fixtures, screenshots, or command transcripts.

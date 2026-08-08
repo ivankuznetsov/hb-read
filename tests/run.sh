@@ -2,7 +2,7 @@
 set -euo pipefail
 
 root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-cli="$root/skills/honeybadger-read/scripts/hb-read"
+cli="$root/skills/badgerpeek/scripts/badgerpeek"
 test_count=0
 
 pass() {
@@ -45,8 +45,8 @@ pass "CLI has valid Bash syntax"
 python3 "$root/tests/validate_skill.py" >/dev/null
 pass "portable Agent Skill metadata is valid"
 
-[[ $("$cli" version) == "hb-read 1.0.0" ]] || fail "version output"
-[[ $(env PATH=/nonexistent /bin/bash "$cli" version) == "hb-read 1.0.0" ]] || fail "version without API dependencies"
+[[ $("$cli" version) == "badgerpeek 1.1.0" ]] || fail "version output"
+[[ $(env PATH=/nonexistent /bin/bash "$cli" version) == "badgerpeek 1.1.0" ]] || fail "version without API dependencies"
 "$cli" help | grep -q "Read Honeybadger errors without MCP or Docker."
 pass "help and version work"
 
@@ -129,11 +129,11 @@ pass "CLI remains compatible with macOS Bash 3.2"
 install_root="$state_dir/install"
 mkdir -p "$install_root/home" "$install_root/prefix"
 CODEX_HOME='' HOME="$install_root/home" "$root/install.sh" --agent all --prefix "$install_root/prefix"
-[[ -x "$install_root/prefix/bin/hb-read" ]] || fail "installed CLI"
-[[ -f "$install_root/home/.codex/skills/honeybadger-read/SKILL.md" ]] || fail "installed Codex skill"
-[[ -f "$install_root/home/.claude/skills/honeybadger-read/SKILL.md" ]] || fail "installed Claude skill"
-[[ -f "$install_root/home/.pi/agent/skills/honeybadger-read/SKILL.md" ]] || fail "installed Pi skill"
-[[ $("$install_root/prefix/bin/hb-read" version) == "hb-read 1.0.0" ]] || fail "installed CLI runs"
+[[ -x "$install_root/prefix/bin/badgerpeek" ]] || fail "installed CLI"
+[[ -f "$install_root/home/.codex/skills/badgerpeek/SKILL.md" ]] || fail "installed Codex skill"
+[[ -f "$install_root/home/.claude/skills/badgerpeek/SKILL.md" ]] || fail "installed Claude skill"
+[[ -f "$install_root/home/.pi/agent/skills/badgerpeek/SKILL.md" ]] || fail "installed Pi skill"
+[[ $("$install_root/prefix/bin/badgerpeek" version) == "badgerpeek 1.1.0" ]] || fail "installed CLI runs"
 run_installer_with_test_home() {
   CODEX_HOME='' HOME="$install_root/home" "$root/install.sh" --agent all --prefix "$install_root/prefix"
 }

@@ -5,7 +5,7 @@ from pathlib import Path
 
 def main():
     root = Path(__file__).resolve().parents[1]
-    skill_dir = root / "skills" / "honeybadger-read"
+    skill_dir = root / "skills" / "badgerpeek"
     skill = skill_dir / "SKILL.md"
     text = skill.read_text(encoding="utf-8")
 
@@ -30,8 +30,8 @@ def main():
         raise SystemExit("skill instructions must not be empty")
 
     metadata = (skill_dir / "agents" / "openai.yaml").read_text(encoding="utf-8")
-    if "$honeybadger-read" not in metadata:
-        raise SystemExit("OpenAI default prompt must invoke $honeybadger-read")
+    if "$badgerpeek" not in metadata:
+        raise SystemExit("OpenAI default prompt must invoke $badgerpeek")
 
     print("portable skill validation passed")
 

@@ -8,7 +8,7 @@ force=false
 
 usage() {
   printf '%s\n' \
-    'Install hb-read and its portable Agent Skill.' \
+    'Install BadgerPeek and its portable Agent Skill.' \
     '' \
     'Usage:' \
     '  ./install.sh --agent codex|claude|pi|all|none [--prefix PATH] [--force]' \
@@ -16,7 +16,7 @@ usage() {
     'Options:' \
     '  --agent NAME  Install the skill for one agent, every agent, or CLI only' \
     '  --prefix PATH Install the CLI under PATH/bin (default: ~/.local)' \
-    '  --force       Replace files from an existing hb-read installation' \
+    '  --force       Replace files from an existing BadgerPeek installation' \
     '  -h, --help    Show this help'
 }
 
@@ -42,22 +42,22 @@ case "$agent" in
 esac
 
 repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-cli_source="$repo_root/skills/honeybadger-read/scripts/hb-read"
-skill_source="$repo_root/skills/honeybadger-read"
-cli_destination="$prefix/bin/hb-read"
+cli_source="$repo_root/skills/badgerpeek/scripts/badgerpeek"
+skill_source="$repo_root/skills/badgerpeek"
+cli_destination="$prefix/bin/badgerpeek"
 
 [[ -f "$cli_source" ]] || die "CLI source not found: $cli_source"
 [[ -f "$skill_source/SKILL.md" ]] || die "skill source not found: $skill_source/SKILL.md"
 
 destinations=()
 if [[ "$agent" == codex || "$agent" == all ]]; then
-  destinations+=("${CODEX_HOME:-$HOME/.codex}/skills/honeybadger-read")
+  destinations+=("${CODEX_HOME:-$HOME/.codex}/skills/badgerpeek")
 fi
 if [[ "$agent" == claude || "$agent" == all ]]; then
-  destinations+=("$HOME/.claude/skills/honeybadger-read")
+  destinations+=("$HOME/.claude/skills/badgerpeek")
 fi
 if [[ "$agent" == pi || "$agent" == all ]]; then
-  destinations+=("$HOME/.pi/agent/skills/honeybadger-read")
+  destinations+=("$HOME/.pi/agent/skills/badgerpeek")
 fi
 
 if ! $force; then
@@ -73,7 +73,7 @@ install -m 0755 "$cli_source" "$cli_destination"
 for destination in "${destinations[@]}"; do
   install -d "$destination/scripts" "$destination/agents"
   install -m 0644 "$skill_source/SKILL.md" "$destination/SKILL.md"
-  install -m 0755 "$skill_source/scripts/hb-read" "$destination/scripts/hb-read"
+  install -m 0755 "$skill_source/scripts/badgerpeek" "$destination/scripts/badgerpeek"
   install -m 0644 "$skill_source/agents/openai.yaml" "$destination/agents/openai.yaml"
   printf 'Installed skill: %s\n' "$destination"
 done
@@ -81,5 +81,5 @@ done
 printf 'Installed CLI: %s\n' "$cli_destination"
 case ":$PATH:" in
   *":$prefix/bin:"*) ;;
-  *) printf 'Add %s/bin to PATH to run hb-read directly.\n' "$prefix" ;;
+  *) printf 'Add %s/bin to PATH to run badgerpeek directly.\n' "$prefix" ;;
 esac

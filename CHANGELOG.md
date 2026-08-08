@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here.
 
+## 1.1.0 - 2026-08-08
+
+- Rename the project, CLI, and Agent Skill from hb-read to BadgerPeek.
+- Keep Honeybadger prominent in skill metadata for reliable agent discovery.
+
 ## 1.0.0 - 2026-08-08
 
 - Add a GET-only Honeybadger CLI for projects, faults, fault details, and notices.

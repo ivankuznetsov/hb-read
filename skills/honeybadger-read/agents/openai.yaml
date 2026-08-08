@@ -1,4 +1,0 @@
-interface:
-  display_name: "Honeybadger Read"
-  short_description: "Safely inspect Honeybadger errors without MCP"
-  default_prompt: "Use $honeybadger-read to inspect recent Honeybadger faults and their occurrences."

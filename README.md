@@ -1,6 +1,6 @@
-# hb-read
+# BadgerPeek
 
-[![CI](https://github.com/ivankuznetsov/hb-read/actions/workflows/ci.yml/badge.svg)](https://github.com/ivankuznetsov/hb-read/actions/workflows/ci.yml)
+[![CI](https://github.com/ivankuznetsov/badgerpeek/actions/workflows/ci.yml/badge.svg)](https://github.com/ivankuznetsov/badgerpeek/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A small, read-only Honeybadger CLI and portable Agent Skill for Codex, Claude Code, and Pi. It lists projects, error groups, error details, and occurrences without MCP or Docker.
@@ -9,7 +9,7 @@ This is an independent project and is not affiliated with or endorsed by Honeyba
 
 ## Why
 
-`hb-read` is for error triage from a terminal or coding agent when a persistent integration is unnecessary. It has a deliberately narrow contract:
+`badgerpeek` is for error triage from a terminal or coding agent when a persistent integration is unnecessary. It has a deliberately narrow contract:
 
 - documented Honeybadger Data API `GET` endpoints only
 - credentials accepted through environment variables only
@@ -28,15 +28,21 @@ Linux and macOS are supported. On Windows, use WSL.
 
 ## Install
 
-Clone the repository and choose which agent should receive the skill:
+Install the Agent Skill from ClawHub:
 
 ```bash
-git clone https://github.com/ivankuznetsov/hb-read.git
-cd hb-read
+npx --yes clawhub@latest install badgerpeek
+```
+
+Or clone the repository to install both the CLI and skill for a specific coding agent:
+
+```bash
+git clone https://github.com/ivankuznetsov/badgerpeek.git
+cd badgerpeek
 ./install.sh --agent codex
 ```
 
-Available values are `codex`, `claude`, `pi`, `all`, and `none` for CLI-only installation. The CLI is installed to `~/.local/bin/hb-read` by default.
+Available values are `codex`, `claude`, `pi`, `all`, and `none` for CLI-only installation. The CLI is installed to `~/.local/bin/badgerpeek` by default.
 
 ```bash
 ./install.sh --agent all
@@ -47,18 +53,18 @@ Available values are `codex`, `claude`, `pi`, `all`, and `none` for CLI-only ins
 Pi can also load the repository directly as a Git package:
 
 ```bash
-pi install git:github.com/ivankuznetsov/hb-read@v1.0.0
+pi install git:github.com/ivankuznetsov/badgerpeek@v1.1.0
 ```
 
-The Git package gives Pi access to the bundled skill and CLI. Run `install.sh` as well if you want `hb-read` available globally on `PATH`.
+The Git package gives Pi access to the bundled skill and CLI. Run `install.sh` as well if you want `badgerpeek` available globally on `PATH`.
 
 ### Skill locations
 
 | Agent | Personal skill location |
 | --- | --- |
-| Codex | `${CODEX_HOME:-~/.codex}/skills/honeybadger-read` |
-| Claude Code | `~/.claude/skills/honeybadger-read` |
-| Pi | `~/.pi/agent/skills/honeybadger-read` |
+| Codex | `${CODEX_HOME:-~/.codex}/skills/badgerpeek` |
+| Claude Code | `~/.claude/skills/badgerpeek` |
+| Pi | `~/.pi/agent/skills/badgerpeek` |
 
 ## Authenticate
 
@@ -80,30 +86,30 @@ export HONEYBADGER_ENDPOINT='https://eu-api.honeybadger.io'
 
 ```bash
 # Discover project IDs
-hb-read projects
+badgerpeek projects
 
 # List recent error groups
-hb-read faults 12345 --limit 10 --order recent
+badgerpeek faults 12345 --limit 10 --order recent
 
 # Search and filter using Unix timestamps
-hb-read faults 12345 \
+badgerpeek faults 12345 \
   --query Timeout \
   --occurred-after 1785542400
 
 # Inspect one error group
-hb-read fault 12345 98765
+badgerpeek fault 12345 98765
 
 # Fetch recent occurrences
-hb-read notices 12345 98765 --limit 3
+badgerpeek notices 12345 98765 --limit 3
 ```
 
 Add `--compact` before the command for single-line JSON:
 
 ```bash
-hb-read --compact faults 12345 --limit 3
+badgerpeek --compact faults 12345 --limit 3
 ```
 
-Run `hb-read help` for every option.
+Run `badgerpeek help` for every option.
 
 Honeybadger calls an error group a **fault** and an individual occurrence a **notice** in its Data API.
 
@@ -120,12 +126,12 @@ Find Timeout errors since this Unix timestamp.
 You can also invoke the skill explicitly where supported:
 
 ```text
-$honeybadger-read
-/honeybadger-read
-/skill:honeybadger-read
+$badgerpeek
+/badgerpeek
+/skill:badgerpeek
 ```
 
-Explicit syntax varies by agent; automatic activation uses the skill description in `skills/honeybadger-read/SKILL.md`.
+Explicit syntax varies by agent; automatic activation uses the skill description in `skills/badgerpeek/SKILL.md`.
 
 ## Security model
 
@@ -146,7 +152,7 @@ Run the hermetic test suite; it starts a local mock API and never needs Honeybad
 Optional static analysis:
 
 ```bash
-shellcheck bin/hb-read install.sh skills/honeybadger-read/scripts/hb-read tests/run.sh
+shellcheck bin/badgerpeek install.sh skills/badgerpeek/scripts/badgerpeek tests/run.sh
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow.

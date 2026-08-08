@@ -1,8 +1,8 @@
 {
-  "name": "hb-read",
-  "version": "1.0.0",
+  "name": "badgerpeek",
+  "version": "1.1.0",
   "private": true,
-  "description": "Read-only Honeybadger CLI and Agent Skill",
+  "description": "Read-only Honeybadger error inspection CLI and Agent Skill",
   "license": "MIT",
   "pi": {
     "skills": [

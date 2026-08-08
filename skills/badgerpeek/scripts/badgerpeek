@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly PROGRAM="hb-read"
-readonly VERSION="1.0.0"
+readonly PROGRAM="badgerpeek"
+readonly VERSION="1.1.0"
 readonly DEFAULT_API_URL="https://app.honeybadger.io"
 
 compact=false
@@ -167,12 +167,12 @@ usage() {
 Read Honeybadger errors without MCP or Docker.
 
 Usage:
-  hb-read [--compact] projects [--account-id ID]
-  hb-read [--compact] faults PROJECT_ID [options]
-  hb-read [--compact] fault PROJECT_ID FAULT_ID
-  hb-read [--compact] notices PROJECT_ID FAULT_ID [options]
-  hb-read version
-  hb-read help
+  badgerpeek [--compact] projects [--account-id ID]
+  badgerpeek [--compact] faults PROJECT_ID [options]
+  badgerpeek [--compact] fault PROJECT_ID FAULT_ID
+  badgerpeek [--compact] notices PROJECT_ID FAULT_ID [options]
+  badgerpeek version
+  badgerpeek help
 
 Fault options:
   --query TEXT             Search fault groups
@@ -195,11 +195,11 @@ Environment:
   HONEYBADGER_ENDPOINT             Fallback API origin (official hb convention)
 
 Examples:
-  hb-read projects
-  hb-read faults 12345 --limit 10 --order recent
-  hb-read faults 12345 --query Timeout --occurred-after 1785542400
-  hb-read fault 12345 98765
-  hb-read notices 12345 98765 --limit 3
+  badgerpeek projects
+  badgerpeek faults 12345 --limit 10 --order recent
+  badgerpeek faults 12345 --query Timeout --occurred-after 1785542400
+  badgerpeek fault 12345 98765
+  badgerpeek notices 12345 98765 --limit 3
 EOF
 }
 
@@ -306,7 +306,7 @@ main() {
     notices) notices_command "$@" ;;
     version) printf '%s %s\n' "$PROGRAM" "$VERSION" ;;
     help | --help | -h) usage ;;
-    *) die "unknown command: $command (run 'hb-read help')" ;;
+    *) die "unknown command: $command (run 'badgerpeek help')" ;;
   esac
 }
 
